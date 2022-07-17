@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 120.25.231.52:8848 # hyx
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    # tjq
+    url: jdbc:mysql://120.24.6.119:3306/chaoshan?characterEncoding=utf8&useSSL=false&serverTimezone=UTC

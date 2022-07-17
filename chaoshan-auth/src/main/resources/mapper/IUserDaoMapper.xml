@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaoshan.mapper.IUserDao">
+    <select id="findUserPermission" resultType="com.chaoshan.entity.Permission">
+        select *
+        from t_permission
+        where id in
+              (select permission_id
+               from t_role_permission
+               where role_id in
+                     (select role_id from t_user_role where user_id = #{userId,jdbcType=VARCHAR}))
+    </select>
+
+    <insert id="grantPermission">
+        insert into t_user_role (user_id, role_id)
+        values (#{param1,jdbcType=BIGINT}, #{param2,jdbcType=VARCHAR})
+    </insert>
+
+</mapper>

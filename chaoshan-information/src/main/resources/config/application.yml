@@ -1,0 +1,33 @@
+server:
+  port: 9901
+
+  servlet:
+    context-path: /information
+spring:
+  profiles:
+    active: dev
+  jackson:
+    default-property-inclusion: non_null
+  application:
+    name: CHAOSHAN-INFORMATION
+  main:
+    allow-bean-definition-overriding: true
+#  redis:
+#    host: 192.168.137.7
+
+token:
+  jwt:
+    signature-key: chaoshan
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+
+
+#elasticsearch:
+#  host: 192.168.137.7:9200
+feign:
+  client:
+    config:
+      default:
+        #不设置connectTimeout会导致readTimeout设置不生效
+        connectTimeout: 3000
+        readTimeout: 6000

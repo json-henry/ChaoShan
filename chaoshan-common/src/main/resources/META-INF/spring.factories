@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.chaoshan.config.WebMvcConfiguration,\
+  com.chaoshan.config.MybatisPlusConfiguration,\
+  com.chaoshan.config.RedisTemplateConfiguration,\
+  com.chaoshan.util.GlobalException

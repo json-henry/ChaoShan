@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaoshan.mapper.ArticleMapper">
+    <resultMap id="BaseResultMap" type="com.chaoshan.entity.Article">
+        <!--@mbg.generated-->
+        <!--@Table chaoshan.cs_article-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+        <result column="picture_link" jdbcType="VARCHAR" property="pictureLink"/>
+        <result column="details" jdbcType="LONGVARCHAR" property="details"/>
+        <result column="tag" jdbcType="VARCHAR" property="tag"/>
+        <result column="vedio_link" jdbcType="VARCHAR" property="vedioLink"/>
+        <result column="recommend_month" jdbcType="INTEGER" property="recommendMonth"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="is_manager" jdbcType="BOOLEAN" property="isManager"/>
+        <result column="is_product" jdbcType="BOOLEAN" property="isProduct"/>
+        <result column="is_publish" jdbcType="BOOLEAN" property="isPublish"/>
+        <result column="is_examine" jdbcType="BOOLEAN" property="isExamine"/>
+        <result column="is_delete" jdbcType="INTEGER" property="isDelete"/>
+        <result column="type" jdbcType="BOOLEAN" property="type"/>
+        <result column="page_view" jdbcType="BIGINT" property="pageView"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, title, introduction, picture_link, details, tag, vedio_link, recommend_month,
+        `location`, is_manager, is_product, is_publish, is_examine, is_delete, `type`, page_view,
+        create_time, create_by, update_time, update_by
+    </sql>
+
+    <select id="getArtPage" resultType="com.chaoshan.entity.Article">
+        select
+        <include refid="Base_Column_List"/>
+        from chaoshan.cs_article
+        where type = #{type,jdbcType=INTEGER}
+    </select>
+
+    <resultMap id="recommendationDailyMap" type="com.chaoshan.entity.Article" extends="BaseResultMap">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="picture_link" jdbcType="VARCHAR" property="pictureLink"/>
+        <result column="vedio_link" jdbcType="VARCHAR" property="vedioLink"/>
+        <result column="type" jdbcType="BOOLEAN" property="type"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="page_view" jdbcType="BIGINT" property="pageView"/>
+    </resultMap>
+
+    <resultMap id="articleMap" type="com.chaoshan.entity.Article">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+        <result column="picture_link" jdbcType="VARCHAR" property="pictureLink"/>
+        <result column="details" jdbcType="LONGVARCHAR" property="details"/>
+        <result column="tag" jdbcType="VARCHAR" property="tag"/>
+        <result column="vedio_link" jdbcType="VARCHAR" property="vedioLink"/>
+        <result column="recommend_month" jdbcType="INTEGER" property="recommendMonth"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="is_manager" jdbcType="BOOLEAN" property="isManager"/>
+        <result column="is_product" jdbcType="BOOLEAN" property="isProduct"/>
+        <result column="is_publish" jdbcType="BOOLEAN" property="isPublish"/>
+        <result column="is_examine" jdbcType="BOOLEAN" property="isExamine"/>
+        <result column="is_delete" jdbcType="INTEGER" property="isDelete"/>
+        <result column="type" jdbcType="BOOLEAN" property="type"/>
+        <result column="page_view" jdbcType="BIGINT" property="pageView"/>
+        <result column="collectionCount" jdbcType="INTEGER" property="collectionCount"/>
+        <result column="starCount" jdbcType="INTEGER" property="starCount"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <select id="recommendationDaily" resultMap="recommendationDailyMap">
+        SELECT id,
+               picture_link,
+               vedio_link,
+               type,
+               title,
+               create_time,
+               page_view
+        FROM cs_article
+        WHERE is_examine = TRUE
+          AND is_publish = TRUE
+    </select>
+    <select id="getArticleById" resultMap="articleMap">
+        SELECT (SELECT count(articleid)
+                FROM cs_article_collection
+                WHERE articleid = #{id,jdbcType=INTEGER}
+                  and is_delete = 0) AS collectionCount,
+               (SELECT count(articleid)
+                FROM cs_article_star
+                WHERE articleid = #{id,jdbcType=INTEGER}
+                  and is_delete = 0) AS starCount,
+               id,
+               details,
+               introduction,
+               is_manager,
+               is_product,
+               location,
+               page_view,
+               picture_link,
+               vedio_link,
+               tag,
+               type,
+               title,
+               recommend_month,
+               create_time
+        FROM cs_article
+        WHERE id = #{id,jdbcType=INTEGER}
+          AND is_delete = 0
+    </select>
+
+    <select id="userPubilshedArticle" resultType="com.chaoshan.entity.Article">
+        SELECT a.id,
+        a.title,
+        a.picture_link,
+        a.create_time
+        FROM cs_article AS a
+        JOIN cs_user_article AS ua ON a.id = ua.articleid
+        WHERE ua.accountid = #{accountid,jdbcType=VARCHAR}
+        AND a.is_examine = TRUE
+        AND a.is_publish = TRUE
+        AND a.is_delete = 0
+        <if test="keyword != null and keyword != ''">
+            AND a.title like concat('%', #{keyword,jdbcType=VARCHAR}, '%')
+        </if>
+    </select>
+    <select id="getDrafts" resultType="com.chaoshan.entity.Article">
+        SELECT a.id,
+        a.title,
+        a.picture_link,
+        a.create_time
+        FROM cs_article AS a
+        JOIN cs_user_article AS ua ON a.id = ua.articleid
+        WHERE ua.accountid = #{accountid,jdbcType=VARCHAR}
+        AND a.is_publish = FALSE
+        AND a.is_delete = 0
+        <if test="keyword != null and keyword != ''">
+            AND a.title like concat('%', #{keyword,jdbcType=VARCHAR}, '%')
+        </if>
+    </select>
+</mapper>

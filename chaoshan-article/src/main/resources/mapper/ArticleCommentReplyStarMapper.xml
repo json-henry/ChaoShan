@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaoshan.mapper.ArticleCommentReplyStarMapper">
+    <resultMap id="BaseResultMap" type="com.chaoshan.entity.ArticleCommentReplyStar">
+        <!--@mbg.generated-->
+        <!--@Table chaoshan.cs_article_comment_reply_star-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="accountid" jdbcType="VARCHAR" property="accountid"/>
+        <result column="comment_reply_id" jdbcType="BIGINT" property="commentReplyId"/>
+        <result column="is_delete" jdbcType="BOOLEAN" property="isDelete"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_tie" jdbcType="TIMESTAMP" property="updateTie"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, accountid, comment_reply_id, is_delete, create_time, update_tie
+    </sql>
+</mapper>

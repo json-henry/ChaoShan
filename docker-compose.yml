@@ -1,0 +1,65 @@
+version: "3.8"
+
+
+
+networks:
+  cs:
+
+volumes:
+  data:
+
+services:
+
+  article:
+    build:
+      context: ./article
+      dockerfile: Dockerfile
+    ports:
+      - "9100:9100"
+    networks:
+      - cs
+
+  auth:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    networks:
+      - cs
+
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - cs
+
+  information:
+    build:
+      context: ./information
+      dockerfile: Dockerfile
+    ports:
+      - "9901:9901"
+    networks:
+      - cs
+
+  today:
+    build:
+      context: ./today
+      dockerfile: Dockerfile
+    ports:
+      - "9902:9902"
+    networks:
+      - cs
+
+  user:
+    build:
+      context: ./user
+      dockerfile: Dockerfile
+    ports:
+      - "9002:9002"
+    networks:
+      - cs

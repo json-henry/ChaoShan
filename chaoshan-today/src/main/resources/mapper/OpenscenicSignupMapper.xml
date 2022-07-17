@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaoshan.mapper.OpenscenicSignupMapper">
+
+    <resultMap id="BaseResultMap" type="com.chaoshan.entity.OpenscenicSignup">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="openscenicid" column="openscenicid" jdbcType="BIGINT"/>
+        <result property="accountid" column="accountid" jdbcType="BIGINT"/>
+        <result property="adminssion_time" column="adminssion_time" jdbcType="VARCHAR"/>
+        <result property="current_position" column="current_position" jdbcType="VARCHAR"/>
+        <result property="is_contact_history" column="is_contact_history" jdbcType="TINYINT"/>
+        <result property="is_health_code" column="is_health_code" jdbcType="TINYINT"/>
+        <result property="is_health" column="is_health" jdbcType="TINYINT"/>
+        <result property="is_true" column="is_true" jdbcType="TINYINT"/>
+        <result property="is_delete" column="is_delete" jdbcType="TINYINT"/>
+        <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,openscenicid,accountid,
+        adminssion_time,current_position,is_contact_history,
+        is_health_code,is_health,is_true,
+        is_delete,create_time,update_time
+    </sql>
+</mapper>

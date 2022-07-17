@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaoshan.mapper.ActivityReplyMapper">
+
+    <resultMap id="BaseResultMap" type="com.chaoshan.entity.ActivityReply">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="comment_id" column="comment_id" jdbcType="BIGINT"/>
+        <result property="accountid" column="accountid" jdbcType="VARCHAR"/>
+        <result property="to_accountid" column="to_accountid" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="is_delete" column="is_delete" jdbcType="TINYINT"/>
+        <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,comment_id,accountid,
+        to_accountid,content,is_delete,
+        create_time,update_time
+    </sql>
+</mapper>

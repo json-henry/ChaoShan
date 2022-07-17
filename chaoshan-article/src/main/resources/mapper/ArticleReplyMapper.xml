@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaoshan.mapper.ArticleReplyMapper">
+    <resultMap id="BaseResultMap" type="com.chaoshan.entity.ArticleReply">
+        <!--@mbg.generated-->
+        <!--@Table chaoshan.cs_article_reply-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="comment_id" jdbcType="BIGINT" property="commentId"/>
+        <result column="accountid" jdbcType="VARCHAR" property="accountid"/>
+        <result column="to_accountid" jdbcType="VARCHAR" property="toAccountid"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="is_delete" jdbcType="BOOLEAN" property="isDelete"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, comment_id, accountid, to_accountid, content, is_delete, create_time, update_time
+    </sql>
+    <select id="getArticleByReplyId" resultType="java.lang.Long">
+        SELECT ac.articleid
+        FROM cs_article_reply AS ar
+                 JOIN cs_article_comment AS ac ON ar.comment_id = ac.id
+        WHERE ar.id = #{commentReplyId,jdbcType=BIGINT}
+          AND ac.is_delete = 0
+    </select>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaoshan.mapper.AttractionMapper">
+    <resultMap id="BaseResultMap" type="com.chaoshan.entity.Attraction">
+        <!--@mbg.generated-->
+        <!--@Table chaoshan.cs_attraction-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+        <result column="details" jdbcType="LONGVARCHAR" property="details"/>
+        <result column="scene" jdbcType="OTHER" property="scene"/>
+        <result column="score" jdbcType="DECIMAL" property="score"/>
+        <result column="vedio_link" jdbcType="VARCHAR" property="vedioLink"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="type" jdbcType="OTHER" property="type"/>
+        <result column="is_delete" jdbcType="BOOLEAN" property="isDelete"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, title, introduction, details, scene, score, vedio_link, `location`, `type`, is_delete,
+        create_time, update_time
+    </sql>
+</mapper>

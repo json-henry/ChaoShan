@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaoshan.mapper.ArticleCommentMapper">
+    <resultMap id="BaseResultMap" type="com.chaoshan.entity.ArticleComment">
+        <!--@mbg.generated-->
+        <!--@Table chaoshan.cs_article_comment-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="accountid" jdbcType="VARCHAR" property="accountid"/>
+        <result column="articleid" jdbcType="BIGINT" property="articleid"/>
+        <result column="message" jdbcType="VARCHAR" property="message"/>
+        <result column="star" jdbcType="INTEGER" property="star"/>
+        <result column="is_delete" jdbcType="BOOLEAN" property="isDelete"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, accountid, articleid, message, star, is_delete, create_time, update_time
+    </sql>
+
+    <resultMap id="commentsMap" type="com.chaoshan.entity.ArticleComment">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="accountid" jdbcType="VARCHAR" property="accountid"/>
+        <result column="articleid" jdbcType="BIGINT" property="articleid"/>
+        <result column="message" jdbcType="VARCHAR" property="message"/>
+        <result column="commentCreateTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <collection property="children" ofType="com.chaoshan.entity.ArticleReply">
+            <id column="reply_id" jdbcType="VARCHAR" property="id"/>
+            <result column="reply_accountid" jdbcType="VARCHAR" property="accountid"/>
+            <result column="to_accountid" jdbcType="VARCHAR" property="toAccountid"/>
+            <result column="content" jdbcType="VARCHAR" property="content"/>
+            <result column="replyCreateTime" jdbcType="TIMESTAMP" property="createTime"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="getCommentByArticleId" resultMap="commentsMap">
+        SELECT DISTINCT ac.id,
+                        ac.accountid,
+                        ac.articleid,
+                        ac.message,
+                        ac.create_time as commentCreateTime,
+                        ar.id          as reply_id,
+                        ar.accountid   AS reply_accountid,
+                        ar.to_accountid,
+                        ar.content,
+                        ar.create_time as replyCreateTime
+        FROM cs_article_comment AS ac
+                 LEFT JOIN cs_article_reply AS ar ON ac.id = ar.comment_id
+        WHERE ac.articleid = #{id,jdbcType=BIGINT}
+          AND ac.is_delete = 0
+        ORDER BY ac.create_time asc, ar.create_time asc
+    </select>
+
+    <!-- <select id="getCommentByArticleId" resultMap="commentsMap">
+         SELECT
+     ac.id,
+     ac.accountid,
+     ac.articleid,
+     ac.message,
+     (select count(comment_id) from cs_article_comment_star
+         where comment_id in (select id from cs_article_comment where articleid = #{id,jdbcType=BIGINT} ) ) as starCount,
+     ar.accountid AS replay_accountid,
+     ar.to_accountid,
+     ar.content,
+     ar.create_time,
+     (select count(comment_relpy_id) from cs_article_comment_reply_star
+         where comment_relpy_id=(select id from cs_article_reply
+             where comment_id in (select id from cs_article_comment where articleid = #{id,jdbcType=BIGINT} ))) as replyStarCount
+ FROM
+     cs_article_comment AS ac
+     left JOIN cs_article_reply AS ar ON ac.id = ar.comment_id
+ WHERE
+     ac.articleid = #{id,jdbcType=BIGINT}
+     </select>-->
+</mapper>

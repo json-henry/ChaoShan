@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaoshan.mapper.UserArticleMapper">
+    <resultMap id="BaseResultMap" type="com.chaoshan.entity.UserArticle">
+        <!--@mbg.generated-->
+        <!--@Table chaoshan.cs_user_article-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="accountid" jdbcType="VARCHAR" property="accountid"/>
+        <result column="articleid" jdbcType="BIGINT" property="articleid"/>
+        <result column="is_delete" jdbcType="BOOLEAN" property="isDelete"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, accountid, articleid, is_delete, create_time, update_time
+    </sql>
+
+    <select id="getUserByArticleId" resultType="com.chaoshan.entity.User">
+        SELECT u.accountid,
+               u.avatar
+        FROM cs_user AS u
+                 JOIN cs_user_article AS ua ON u.accountid = ua.accountid
+                 JOIN cs_article AS a ON ua.articleid = a.id
+        WHERE a.id = #{id,jdbcType=BIGINT}
+          AND u.is_delete = 0
+    </select>
+</mapper>

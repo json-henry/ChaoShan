@@ -1,0 +1,27 @@
+# 配置逻辑删除
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  # 日志打印
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+# oss配置
+aliyun:
+  oss:
+    endpoint: oss-cn-guangzhou.aliyuncs.com
+    access-key-id: LTAI5tQ38GF71RUUBa8iTtZK
+    access-key-secret: cYzFxpLkvpD44mD6f4Hukw1F0sxQex
+    bucket-name: test-fengyue
+    bucket-domain: test-fengyue.oss-cn-guangzhou.aliyuncs.com
+    folder: images/chaoshan/
+
+# 配置文件大小
+Spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 500MB
+      max-request-size: 500MB
+
