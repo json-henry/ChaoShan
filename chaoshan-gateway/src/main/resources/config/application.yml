@@ -12,11 +12,6 @@ spring:
       max-request-size: 500MB
   profiles:
     active: dev
-  #  cloud:
-  #    nacos:
-  #      discovery:
-  #        server-addr: 192.168.137.7:8848
-  #        namespace: 5316272c-6a95-4a4e-836c-fbc8f9c3b5e4
 
   main:
     allow-bean-definition-overriding: true
@@ -33,9 +28,6 @@ zuul:
     CHAOSHAN-AUTH:
       stripPrefix: false
       path: /auth/**
-    #    demo:
-    #     stripPrefix: false
-    #     path: /demo/**
     CHAOSHAN-USER:
       stripPrefix: false
       path: /user/**
@@ -59,8 +51,6 @@ ribbon: #设置ribbon的超时时间小于zuul的超时时间
 
 swagger:
   servers:
-    #    - {name: demo,location: /demo/v2/api-docs, version: 2.0}
-    #    - {name: auth,location: /auth/v2/api-docs, version: 2.0}
     - { name: user,location: /user/v2/api-docs, version: 2.0 }
     - { name: article,location: /article/v2/api-docs, version: 2.0 }
     - { name: information,location: /information/v2/api-docs, version: 2.0 }
@@ -68,7 +58,6 @@ swagger:
 
 chaoshan:
   modules:
-    #    - demo
     - user
     - article
     - information

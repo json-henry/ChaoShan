@@ -12,18 +12,13 @@ spring:
     name: CHAOSHAN-INFORMATION
   main:
     allow-bean-definition-overriding: true
-#  redis:
-#    host: 192.168.137.7
 
 token:
   jwt:
     signature-key: chaoshan
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*Mapper.xml
-
-
-#elasticsearch:
-#  host: 192.168.137.7:9200
+  
 feign:
   client:
     config:

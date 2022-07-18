@@ -2,5 +2,5 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 120.25.231.52:8848 # hyx
+        server-addr: ...
 
