@@ -10,11 +10,6 @@ spring:
     name: CHAOSHAN-ARTICLE
   jackson:
     default-property-inclusion: non_null
-    #  rabbitmq:
-    #    host: 192.168.137.7
-    #    port: 5672
-    #    username: admin
-    #    password: admin
 
     virtual-host: /
     listener:
